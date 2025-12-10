@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-prometheus-app
+  labels:
+    app: devops-prometheus
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devops-prometheus
+  template:
+    metadata:
+      labels:
+        app: devops-prometheus
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8080"
+    spec:
+      containers:
+        - name: devops-prometheus
+          image: vincentgwzhang/devops-prometheus:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent

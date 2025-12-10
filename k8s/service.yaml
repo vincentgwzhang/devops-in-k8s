@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-prometheus-svc
+  labels:
+    app: devops-prometheus
+spec:
+  selector:
+    app: devops-prometheus
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: NodePort
